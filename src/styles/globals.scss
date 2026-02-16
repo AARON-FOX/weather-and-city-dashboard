@@ -5,6 +5,9 @@
   --card-bg: #{$color-light-card};
   --text-primary: #{$color-light-text};
   --accent-color: #{$color-light-accent};
+
+  --button-bg: rgba(0, 0, 0, 0.05);
+  --button-hover: rgba(0, 0, 0, 0.1);
 }
 
 [data-theme='dark'] {
@@ -12,6 +15,9 @@
   --card-bg: #{$color-dark-card};
   --text-primary: #{$color-dark-text};
   --accent-color: #{$color-dark-accent};
+
+  --button-bg: rgba(255, 255, 255, 0.1);
+  --button-hover: rgba(255, 255, 255, 0.2);
 }
 
 * {
