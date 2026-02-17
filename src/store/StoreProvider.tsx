@@ -3,6 +3,7 @@
 import { useRef } from 'react';
 import { Provider } from 'react-redux';
 import { makeStore, AppStore } from './index';
+import { ThemeManager } from '@/components/utils/ThemeManager';
 
 export default function StoreProvider({
   children,
@@ -17,5 +18,5 @@ export default function StoreProvider({
   }
 
   // eslint-disable-next-line react-hooks/refs
-  return <Provider store={storeRef.current}>{children}</Provider>;
+  return <Provider store={storeRef.current}><ThemeManager /> {children} </Provider>;
 }
