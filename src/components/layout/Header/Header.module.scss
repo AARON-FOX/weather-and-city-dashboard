@@ -33,12 +33,16 @@
       display: flex;
       align-items: center;
 
-      .searchIcon {
+      .searchIcon, .spinnerIcon {
         position: absolute;
         left: 12px;
         color: var(--text-primary);
         opacity: 0.8;
         pointer-events: none;
+      }
+
+      .spinnerIcon {
+        animation: spin 1s linear infinite;
       }
 
       .searchInput {
@@ -61,6 +65,11 @@
         &:focus {
           border-color: rgba(0, 0, 0, 0.1);
           box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+
+        @keyframes spin {
+          from { transform: rotate(0deg); }
+          to { transform: rotate(360deg); }
         }
       }
     }

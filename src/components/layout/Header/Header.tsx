@@ -2,14 +2,26 @@
 
 import Link from 'next/link';
 import styles from './Header.module.scss';
-import { CloudSun, Heart, Moon, Search, Sun } from 'lucide-react';
+import { CloudSun, Heart, Moon, Search, Sun, Loader2 } from 'lucide-react';
 import { useDispatch, useSelector } from 'react-redux';
 import { toggleTheme } from '@/store/slices/settingsSlice';
-import { RootState } from '@/store';
+import { AppDispatch, RootState } from '@/store';
+import { useState } from 'react';
+import { fetchWeather } from '@/store/slices/weatherSlice';
 
 export const Header = () => {
-  const dispatch = useDispatch();
+  const [searchValue, setSearchValue] = useState('');
+
+  const dispatch = useDispatch<AppDispatch>();
   const theme = useSelector((state: RootState) => state.settings.theme);
+  const { isLoading } = useSelector((state: RootState) => state.weather);
+
+  const handleSearch = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === 'Enter' && searchValue.trim()) {
+      dispatch(fetchWeather(searchValue));
+      setSearchValue('');
+    }
+  };
 
   return (
     <header className={styles.header}>
@@ -19,10 +31,18 @@ export const Header = () => {
           <span>SkyCast</span>
         </Link>
 
-        <div className={styles.searchWrapper}>
-          <Search size={20} className={styles.searchIcon} />
+        <div className={`${styles.searchWrapper} ${isLoading ? styles.loading : ''}`}>
+          {isLoading ? (
+            <Loader2 size={20} className={styles.spinnerIcon} />
+          ) : (
+            <Search size={20} className={styles.searchIcon} />
+          )}
+
           <input
             type="text"
+            value={searchValue}
+            onChange={(event) => setSearchValue(event.target.value)}
+            onKeyDown={handleSearch}
             placeholder="Search city..."
             className={styles.searchInput}
           />
