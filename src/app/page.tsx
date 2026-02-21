@@ -4,10 +4,13 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '@/store';
 import { fetchWeather } from '@/store/slices/weatherSlice';
+import { WeatherCard } from '@/components/weather/WeatherCard';
 
 export default function Home() {
   const dispatch = useDispatch<AppDispatch>();
-  const { currentWeather, isLoading, error } = useSelector((state: RootState) => state.weather);
+  const { currentWeather, isLoading, error } = useSelector(
+    (state: RootState) => state.weather
+  );
 
   useEffect(() => {
     dispatch(fetchWeather('Kyiv'));
@@ -21,17 +24,5 @@ export default function Home() {
     return <div className="container">Error: {error}</div>;
   }
 
-  return (
-    <div className="container">
-      {currentWeather && (
-        <section style={{ marginTop: '20px' }}>
-          <h1>{currentWeather.name}</h1>
-          <p style={{ fontSize: '24px' }}>
-            {Math.round(currentWeather.main.temp)}°C
-          </p>
-          <p>{currentWeather.weather[0].description}</p>
-        </section>
-      )}
-    </div>
-  );
+  return <WeatherCard />;
 }
