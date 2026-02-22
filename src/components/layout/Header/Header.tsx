@@ -6,15 +6,20 @@ import { CloudSun, Heart, Moon, Search, Sun, Loader2 } from 'lucide-react';
 import { useDispatch, useSelector } from 'react-redux';
 import { toggleTheme } from '@/store/slices/settingsSlice';
 import { AppDispatch, RootState } from '@/store';
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { fetchWeather } from '@/store/slices/weatherSlice';
+import { FavoritesDropdown } from './FavoritesDropdown/FavoritesDropdown';
 
 export const Header = () => {
   const [searchValue, setSearchValue] = useState('');
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+
+  const dropdownRef = useRef<HTMLDivElement>(null);
 
   const dispatch = useDispatch<AppDispatch>();
   const theme = useSelector((state: RootState) => state.settings.theme);
   const { isLoading } = useSelector((state: RootState) => state.weather);
+  const favorites = useSelector((state: RootState) => state.favorites.items);
 
   const handleSearch = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === 'Enter' && searchValue.trim()) {
@@ -22,6 +27,25 @@ export const Header = () => {
       setSearchValue('');
     }
   };
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
+      ) {
+        setIsDropdownOpen(false);
+      }
+    };
+
+    if (isDropdownOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [isDropdownOpen]);
 
   return (
     <header className={styles.header}>
@@ -31,7 +55,9 @@ export const Header = () => {
           <span>SkyCast</span>
         </Link>
 
-        <div className={`${styles.searchWrapper} ${isLoading ? styles.loading : ''}`}>
+        <div
+          className={`${styles.searchWrapper} ${isLoading ? styles.loading : ''}`}
+        >
           {isLoading ? (
             <Loader2 size={20} className={styles.spinnerIcon} />
           ) : (
@@ -49,12 +75,27 @@ export const Header = () => {
         </div>
 
         <nav className={styles.nav}>
-          <Link href="/favorites" className={styles.favoriteLink}>
-            <Heart size={24} />
-            <span>Favorites</span>
-          </Link>
+          <div className={styles.favoritesWrapper} ref={dropdownRef}>
+            <button
+              className={styles.favoriteLink}
+              onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+            >
+              <Heart
+                size={24}
+                fill={favorites.length > 0 ? 'currentColor' : 'none'}
+              />
+              <span>Favorites</span>
+            </button>
 
-          <button className={styles.themeToggle} onClick={() => dispatch(toggleTheme())}>
+            {isDropdownOpen && (
+              <FavoritesDropdown onClose={() => setIsDropdownOpen(false)} />
+            )}
+          </div>
+
+          <button
+            className={styles.themeToggle}
+            onClick={() => dispatch(toggleTheme())}
+          >
             {theme === 'light' ? <Sun size={24} /> : <Moon size={24} />}
           </button>
         </nav>

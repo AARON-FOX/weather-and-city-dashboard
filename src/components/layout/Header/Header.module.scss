@@ -77,6 +77,11 @@
     .nav {
       display: flex;
       gap: 12px;
+      align-items: center;
+
+      .favoritesWrapper {
+        position: relative;
+      }
 
       .favoriteLink, .themeToggle {
         display: flex;
