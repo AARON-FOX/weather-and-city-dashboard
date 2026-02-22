@@ -12,16 +12,18 @@ import {
 import storage from 'redux-persist/lib/storage';
 import settingsReduces from './slices/settingsSlice';
 import weatherReducer from './slices/weatherSlice';
+import favoritesReduces from './slices/favoritesSlice';
 
 const rootReducer = combineReducers({
   settings: settingsReduces,
   weather: weatherReducer,
+  favorites: favoritesReduces,
 });
 
 const persistConfig = {
   key: 'root',
   storage,
-  whitelist: ['settings'],
+  whitelist: ['settings', 'favorites'],
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
