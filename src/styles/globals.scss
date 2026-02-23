@@ -29,7 +29,7 @@
 body {
   background-color: var(--bg-color);
   color: var(--text-primary);
-  font-family: 'Inter', sans-serif;
+  font-family: var(--font-montserrat);
   transition: background-color $transition-speed, color $transition-speed;
   min-height: 100vh;
 }
