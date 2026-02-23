@@ -11,14 +11,10 @@ import { toggleFavorite } from '@/store/slices/favoritesSlice';
 export const WeatherCard = () => {
   const dispatch = useDispatch<AppDispatch>();
 
-  const { currentWeather, isLoading } = useSelector(
+  const { currentWeather } = useSelector(
     (state: RootState) => state.weather
   );
   const favorites = useSelector((state: RootState) => state.favorites.items);
-
-  if (isLoading) {
-    return <div className={styles.loader}>Loading weather...</div>;
-  }
 
   if (!currentWeather) {
     return null;

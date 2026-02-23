@@ -1,4 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { toast } from 'react-toastify';
 
 interface WeatherData {
   name: string;
@@ -54,7 +55,9 @@ const weatherSlice = createSlice({
       })
       .addCase(fetchWeather.rejected, (state, action) => {
         state.isLoading = false;
-        state.error = action.error.message || 'Something went wrong';
+        state.error = action.payload as string;
+
+        toast.error(`Error: The city does not exist `);
       });
   },
 });

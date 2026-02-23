@@ -8,21 +8,17 @@ import { WeatherCard } from '@/components/weather/WeatherCard';
 
 export default function Home() {
   const dispatch = useDispatch<AppDispatch>();
-  const { currentWeather, isLoading, error } = useSelector(
-    (state: RootState) => state.weather
-  );
+  // const { isLoading } = useSelector(
+  //   (state: RootState) => state.weather
+  // );
 
   useEffect(() => {
     dispatch(fetchWeather('Kyiv'));
   }, [dispatch]);
 
-  if (isLoading) {
-    return <div className="container">Loading...</div>;
-  }
-
-  if (error) {
-    return <div className="container">Error: {error}</div>;
-  }
+  // if (isLoading) {
+  //   return <div className="container">Loading...</div>;
+  // }
 
   return <WeatherCard />;
 }
