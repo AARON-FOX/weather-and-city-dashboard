@@ -1,9 +1,9 @@
 @import '@/styles/variables';
 
 .footer {
-  background-color: var(--card-bg);
+  background-color: var(--accent-color);
   border-top: 1px solid rgba(0, 0, 0, 0.05);
-  padding: 24px 0;
+  padding: 24px 60px;
   margin-top: auto;
   color: var(--text-primary);
   transition: background-color $transition-speed;
@@ -11,7 +11,6 @@
   .container {
     max-width: $container-width;
     margin: 0 auto;
-    padding: 0 60px;
     display: flex;
     justify-content: space-between;
     align-items: center;

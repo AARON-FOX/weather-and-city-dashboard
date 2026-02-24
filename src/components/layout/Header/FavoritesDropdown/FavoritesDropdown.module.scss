@@ -3,7 +3,7 @@
   top: calc(100% + 10px);
   right: 0;
   width: 240px;
-  background: var(--card-bg);
+  background-color: var(--dropdown-bg);
   backdrop-filter: blur(10px);
   border-radius: 12px;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
@@ -11,7 +11,6 @@
   z-index: 100;
   border: 1px solid rgba(255, 255, 255, 0.1);
   color: var(--text-primary);
-  font-family: var(--font-montserrat);
 
   .title {
     padding: 0 15px 10px;

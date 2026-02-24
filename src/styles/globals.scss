@@ -5,9 +5,11 @@
   --card-bg: #{$color-light-card};
   --text-primary: #{$color-light-text};
   --accent-color: #{$color-light-accent};
+  --color-search-bar: #{$color-light-search-bar};
 
   --button-bg: #{$button-light-bg};
   --button-hover: #{$button-light-hover};
+  --dropdown-bg: #{$dropdown-light-bg};
 }
 
 [data-theme='dark'] {
@@ -15,9 +17,11 @@
   --card-bg: #{$color-dark-card};
   --text-primary: #{$color-dark-text};
   --accent-color: #{$color-dark-accent};
+  --color-search-bar: #{$color-dark-search-bar};
 
   --button-bg: #{$button-dark-bg};
   --button-hover: #{$button-dark-hover};
+  --dropdown-bg: #{$dropdown-dark-bg};
 }
 
 * {
