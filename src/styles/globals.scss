@@ -30,11 +30,19 @@ body {
   background-color: var(--bg-color);
   color: var(--text-primary);
   font-family: var(--font-montserrat);
-  transition: background-color $transition-speed, color $transition-speed;
+  transition:
+    background-color $transition-speed,
+    color $transition-speed;
   min-height: 100vh;
 }
 
 a {
   color: inherit;
   text-decoration: none;
+}
+
+.app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }

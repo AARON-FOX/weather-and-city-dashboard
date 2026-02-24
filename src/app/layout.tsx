@@ -3,6 +3,7 @@ import StoreProvider from '@/store/StoreProvider';
 import '@/styles/globals.scss';
 import { Header } from '@/components/layout/Header';
 import { Zain, Montserrat } from 'next/font/google';
+import { Footer } from '@/components/layout/Footer';
 
 const zain = Zain({
   subsets: ['latin'],
@@ -36,7 +37,7 @@ export default function RootLayout({
           <div className="app-container">
             <Header />
             <main className="main-container">{children}</main>
-            {/* Footer */}
+            <Footer />
           </div>
         </StoreProvider>
       </body>
