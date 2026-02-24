@@ -8,17 +8,19 @@ import { WeatherCard } from '@/components/weather/WeatherCard';
 
 export default function Home() {
   const dispatch = useDispatch<AppDispatch>();
-  // const { isLoading } = useSelector(
-  //   (state: RootState) => state.weather
-  // );
+  const { currentWeather } = useSelector(
+    (state: RootState) => state.weather
+  );
 
   useEffect(() => {
-    dispatch(fetchWeather('Kyiv'));
-  }, [dispatch]);
+    if (!currentWeather) {
+      dispatch(fetchWeather('Kyiv'));
+    }
+  }, [dispatch, currentWeather]);
 
-  // if (isLoading) {
-  //   return <div className="container">Loading...</div>;
-  // }
-
-  return <WeatherCard />;
+  return (
+    <div className="home-page">
+      <WeatherCard />
+    </div>
+  );
 }
