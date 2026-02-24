@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { toggleTheme } from '@/store/slices/settingsSlice';
 import { AppDispatch, RootState } from '@/store';
 import { useEffect, useRef, useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { fetchWeather } from '@/store/slices/weatherSlice';
 import { FavoritesDropdown } from './FavoritesDropdown/FavoritesDropdown';
 
@@ -15,6 +16,7 @@ export const Header = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const router = useRouter();
 
   const dispatch = useDispatch<AppDispatch>();
   const theme = useSelector((state: RootState) => state.settings.theme);
@@ -25,6 +27,9 @@ export const Header = () => {
     if (event.key === 'Enter' && searchValue.trim()) {
       dispatch(fetchWeather(searchValue));
       setSearchValue('');
+
+      router.push('/');
+      setIsDropdownOpen(false);
     }
   };
 
