@@ -11,30 +11,68 @@ interface WeatherData {
   wind: { speed: number };
 }
 
+export interface ForecastItem {
+  dt: number;
+  main: {
+    temp_max: number;
+    temp_min: number;
+  };
+  weather: {
+    icon: string;
+    description: string;
+  }[];
+  dt_txt: string;
+}
+
 interface WeatherState {
   currentWeather: WeatherData | null;
+  forecast: ForecastItem[] | null;
   isLoading: boolean;
   error: string | null;
 }
 
 const initialState: WeatherState = {
   currentWeather: null,
+  forecast: null,
   isLoading: false,
   error: null,
 };
 
-export const fetchWeather = createAsyncThunk(
-  'weather/fetchWeather',
-  async (city: string) => {
-    const response = await fetch(
-      `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${process.env.NEXT_PUBLIC_WEATHER_API_KEY}&units=metric`
-    );
+export const fetchWeatherAndForecast = createAsyncThunk(
+  'weather/fetchAll',
+  async (city: string, { rejectWithValue }) => {
+    try {
+      const API_KEY = process.env.NEXT_PUBLIC_WEATHER_API_KEY;
 
-    if (!response.ok) {
-      throw new Error('City not found');
-    };
+      const [weatherRes, forecastRes] = await Promise.all([
+        fetch(
+          `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${API_KEY}`
+        ),
+        fetch(
+          `https://api.openweathermap.org/data/2.5/forecast?q=${city}&units=metric&appid=${API_KEY}`
+        ),
+      ]);
 
-    return (await response.json()) as WeatherData;
+      if (!weatherRes.ok || !forecastRes.ok) {
+        throw new Error('City not found');
+      }
+
+      const weatherData = await weatherRes.json();
+      const forecastData = await forecastRes.json();
+
+      const dailyForecast = forecastData.list.filter((item: ForecastItem) =>
+        item.dt_txt.includes('12:00:00')
+      );
+
+      return {
+        current: weatherData,
+        forecast: dailyForecast,
+      };
+    } catch (err) {
+      const error = err as Error;
+
+      return rejectWithValue(error.message);
+    }
   }
 );
 
@@ -44,20 +82,20 @@ const weatherSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(fetchWeather.pending, (state) => {
+      .addCase(fetchWeatherAndForecast.pending, (state) => {
         state.isLoading = true;
         state.error = null;
       })
-      .addCase(fetchWeather.fulfilled, (state, action) => {
+      .addCase(fetchWeatherAndForecast.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.error = null;
-        state.currentWeather = action.payload;
+        state.currentWeather = action.payload.current;
+        state.forecast = action.payload.forecast;
       })
-      .addCase(fetchWeather.rejected, (state, action) => {
+      .addCase(fetchWeatherAndForecast.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.payload as string;
 
-        toast.error(`Error: The city does not exist `);
+        toast.error((action.payload as string) || 'City not found');
       });
   },
 });

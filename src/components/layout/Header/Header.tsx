@@ -8,7 +8,7 @@ import { toggleTheme } from '@/store/slices/settingsSlice';
 import { AppDispatch, RootState } from '@/store';
 import { useEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { fetchWeather } from '@/store/slices/weatherSlice';
+import { fetchWeatherAndForecast } from '@/store/slices/weatherSlice';
 import { FavoritesDropdown } from './FavoritesDropdown/FavoritesDropdown';
 
 export const Header = () => {
@@ -25,7 +25,7 @@ export const Header = () => {
 
   const handleSearch = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === 'Enter' && searchValue.trim()) {
-      dispatch(fetchWeather(searchValue));
+      dispatch(fetchWeatherAndForecast(searchValue));
       setSearchValue('');
 
       router.push('/');

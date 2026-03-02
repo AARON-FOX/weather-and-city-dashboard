@@ -3,8 +3,9 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '@/store';
-import { fetchWeather } from '@/store/slices/weatherSlice';
+import { fetchWeatherAndForecast } from '@/store/slices/weatherSlice';
 import { WeatherCard } from '@/components/weather/WeatherCard';
+import { Forecast } from '@/components/features/Forecast/Forecast';
 
 export default function Home() {
   const dispatch = useDispatch<AppDispatch>();
@@ -14,13 +15,14 @@ export default function Home() {
 
   useEffect(() => {
     if (!currentWeather) {
-      dispatch(fetchWeather('Kyiv'));
+      dispatch(fetchWeatherAndForecast('Kyiv'));
     }
   }, [dispatch, currentWeather]);
 
   return (
     <div className="home-page">
       <WeatherCard />
+      <Forecast />
     </div>
   );
 }

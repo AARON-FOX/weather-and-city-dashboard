@@ -3,7 +3,7 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState, AppDispatch } from '@/store';
-import { fetchWeather } from '@/store/slices/weatherSlice';
+import { fetchWeatherAndForecast } from '@/store/slices/weatherSlice';
 import { toggleFavorite } from '@/store/slices/favoritesSlice';
 import { useRouter } from 'next/navigation';
 import { Trash2, MapPin, ArrowLeft, CloudSun } from 'lucide-react';
@@ -16,7 +16,7 @@ export default function FavoritesPage() {
   const router = useRouter();
 
   const handleSelectCity = (city: string) => {
-    dispatch(fetchWeather(city));
+    dispatch(fetchWeatherAndForecast(city));
     router.push('/');
   };
 

@@ -1,0 +1,71 @@
+@import '@/styles/variables';
+
+.forecastContainer {
+  width: 100%;
+  max-width: 800px;
+  margin: 20px auto;
+  padding: 0 20px;
+
+  .title {
+    font-size: 20px;
+    margin-bottom: 15px;
+    opacity: 0.9;
+  }
+
+  .grid {
+    display: flex;
+    gap: 15px;
+    justify-content: space-between;
+
+    @media (max-width: 600px) {
+      overflow-x: auto;
+      padding-bottom: 10px;
+      justify-content: flex-start;
+
+      &::-webkit-scrollbar {
+        height: 4px;
+      }
+
+      &::-webkit-scrollbar-thumb {
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 10px;
+      }
+    }
+  }
+
+  .card {
+    background: var(--card-bg);
+    padding: 15px;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 100px;
+    flex: 1;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+
+    .day {
+      font-weight: 600;
+      font-size: 14px;
+      text-transform: uppercase;
+    }
+    img {
+      width: 50px;
+      height: 50px;
+    }
+
+    .temps {
+      display: flex;
+      gap: 8px;
+      font-size: 16px;
+
+      .max {
+        font-weight: 700;
+      }
+
+      .min {
+        opacity: 0.5;
+      }
+    }
+  }
+}
