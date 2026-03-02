@@ -1,7 +1,7 @@
 .dropdown {
   position: absolute;
   top: calc(100% + 10px);
-  right: 0;
+  right: auto;
   width: 240px;
   background-color: var(--dropdown-bg);
   backdrop-filter: blur(10px);
@@ -11,6 +11,20 @@
   z-index: 100;
   border: 1px solid rgba(255, 255, 255, 0.1);
   color: var(--text-primary);
+
+  @media (max-width: 768px) {
+    right: auto;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 220px;
+  }
+
+  @media (max-width: 480px) {
+    left: auto;
+    right: -10px;
+    transform: none;
+    width: 200px;
+  }
 
   .title {
     padding: 0 15px 10px;
