@@ -7,6 +7,7 @@ import { RootState, AppDispatch } from '@/store';
 import { fetchWeather } from '@/store/slices/weatherSlice';
 import { MapPin, ArrowRight } from 'lucide-react';
 import styles from './FavoritesDropdown.module.scss';
+import { useRouter } from 'next/navigation';
 
 interface Props {
   onClose: () => void;
@@ -14,12 +15,14 @@ interface Props {
 
 export const FavoritesDropdown = ({ onClose }: Props) => {
   const dispatch = useDispatch<AppDispatch>();
+  const router = useRouter();
   const favorites = useSelector((state: RootState) => state.favorites.items);
 
   const recentFavorites = favorites.slice(-5).reverse();
 
   const handleCityClick = (city: string) => {
     dispatch(fetchWeather(city));
+    router.push('/');
     onClose();
   };
 
