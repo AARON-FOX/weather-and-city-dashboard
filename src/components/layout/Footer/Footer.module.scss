@@ -1,4 +1,4 @@
-@import '@/styles/variables';
+@use '@/styles/variables' as *;
 
 .footer {
   background-color: var(--accent-color);
@@ -6,7 +6,7 @@
   padding: 24px 60px;
   margin-top: auto;
   color: var(--text-primary);
-  transition: background-color $transition-speed;
+  transition: background-color #{$transition-speed};
 
   @media (max-width: 1024px) {
     padding: 24px 30px;
@@ -17,7 +17,7 @@
   }
 
   .container {
-    max-width: $container-width;
+    max-width: #{$container-width};
     margin: 0 auto;
     display: flex;
     justify-content: space-between;

@@ -1,4 +1,4 @@
-@import 'variables';
+@use 'variables' as *;
 
 :root {
   --bg-color: #{$color-light-bg};
@@ -35,8 +35,8 @@ body {
   color: var(--text-primary);
   font-family: var(--font-montserrat);
   transition:
-    background-color $transition-speed,
-    color $transition-speed;
+    background-color #{$transition-speed},
+    color #{$transition-speed};
   min-height: 100vh;
   min-width: 320px;
   overflow-x: hidden;
