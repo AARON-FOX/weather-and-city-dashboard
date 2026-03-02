@@ -8,12 +8,26 @@
   top: 0;
   z-index: 100;
 
+  @media (max-width: 1024px) {
+    padding: 12px 30px;
+  }
+
+  @media (max-width: 768px) {
+    padding: 10px 15px;
+  }
+
   .container {
     max-width: $container-width;
     margin: 0 auto;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    gap: 15px;
+
+    @media (max-width: 600px) {
+      flex-wrap: wrap;
+      justify-content: space-between;
+    }
 
     .logo {
       display: flex;
@@ -24,16 +38,34 @@
       font-weight: 700;
       color: var(--text-primary);
       transition: opacity $transition-speed;
+      flex-shrink: 0;
 
-      &:hover { opacity: 0.8; }
+      &:hover {
+        opacity: 0.8;
+      }
+
+      @media (max-width: 380px) {
+        span {
+          display: none;
+        }
+      }
     }
 
     .searchWrapper {
       position: relative;
       display: flex;
       align-items: center;
+      flex: 1;
+      max-width: 350px;
 
-      .searchIcon, .spinnerIcon {
+      @media (max-width: 600px) {
+        order: 3;
+        max-width: 100%;
+        width: 100%;
+      }
+
+      .searchIcon,
+      .spinnerIcon {
         position: absolute;
         left: 12px;
         color: var(--text-primary);
@@ -41,13 +73,9 @@
         pointer-events: none;
       }
 
-      .spinnerIcon {
-        animation: spin 1s linear infinite;
-      }
-
       .searchInput {
         padding: 10px 15px 10px 40px;
-        width: 350px;
+        width: 100%;
         font-family: var(--font-montserrat);
         font-size: 15px;
         outline: none;
@@ -61,16 +89,6 @@
           color: var(--text-primary);
           opacity: 0.6;
         }
-
-        &:focus {
-          border-color: rgba(0, 0, 0, 0.1);
-          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-        }
-
-        @keyframes spin {
-          from { transform: rotate(0deg); }
-          to { transform: rotate(360deg); }
-        }
       }
     }
 
@@ -78,12 +96,14 @@
       display: flex;
       gap: 12px;
       align-items: center;
+      flex-shrink: 0;
 
-      .favoritesWrapper {
-        position: relative;
+      @media (max-width: 480px) {
+        gap: 8px;
       }
 
-      .favoriteLink, .themeToggle {
+      .favoriteLink,
+      .themeToggle {
         display: flex;
         align-items: center;
         gap: 8px;
@@ -97,12 +117,17 @@
         cursor: pointer;
         transition: all $transition-speed;
 
+        @media (max-width: 768px) {
+          padding: 8px;
+          span {
+            display: none;
+          }
+        }
+
         &:hover {
           background-color: var(--button-hover);
           transform: translateY(-1px);
         }
-
-        &:active { transform: translateY(0); }
       }
     }
   }

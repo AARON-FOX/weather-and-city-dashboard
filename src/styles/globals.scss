@@ -38,6 +38,8 @@ body {
     background-color $transition-speed,
     color $transition-speed;
   min-height: 100vh;
+  min-width: 320px;
+  overflow-x: hidden;
 }
 
 a {
