@@ -8,6 +8,14 @@
   color: var(--text-primary);
   transition: background-color $transition-speed;
 
+  @media (max-width: 1024px) {
+    padding: 24px 30px;
+  }
+
+  @media (max-width: 768px) {
+    padding: 20px 15px;
+  }
+
   .container {
     max-width: $container-width;
     margin: 0 auto;
