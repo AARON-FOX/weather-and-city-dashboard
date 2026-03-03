@@ -19,6 +19,10 @@ const montserrat = Montserrat({
 export const metadata: Metadata = {
   title: 'SkyCast | Weather Dashboard',
   description: 'Modern weather forecasting app',
+  icons: {
+    icon: '/favicon.ico',
+    apple: '/apple-touch-icon.png',
+  },
 };
 
 export default function RootLayout({
