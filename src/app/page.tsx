@@ -1,28 +1,11 @@
-'use client';
+import { HomeContent } from '@/components/features/HomeContent/HomeContent';
+import { Metadata } from 'next';
 
-import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { AppDispatch, RootState } from '@/store';
-import { fetchWeatherAndForecast } from '@/store/slices/weatherSlice';
-import { WeatherCard } from '@/components/weather/WeatherCard';
-import { Forecast } from '@/components/features/Forecast/Forecast';
+export const metadata: Metadata = {
+  title: 'SkyCast | Weather Dashboard',
+  description: 'Check current weather and 5-day forecast for any city',
+};
 
 export default function Home() {
-  const dispatch = useDispatch<AppDispatch>();
-  const { currentWeather } = useSelector(
-    (state: RootState) => state.weather
-  );
-
-  useEffect(() => {
-    if (!currentWeather) {
-      dispatch(fetchWeatherAndForecast('Kyiv'));
-    }
-  }, [dispatch, currentWeather]);
-
-  return (
-    <div className="home-page">
-      <WeatherCard />
-      <Forecast />
-    </div>
-  );
+  return <HomeContent />;
 }
