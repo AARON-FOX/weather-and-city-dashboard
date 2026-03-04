@@ -4,6 +4,7 @@ import { Provider } from 'react-redux';
 import { persistor, store } from '.';
 import { PersistGate } from 'redux-persist/integration/react';
 import { ThemeManager } from '@/components/utils/ThemeManager';
+import { AppToast } from '@/components/utils/AppToast';
 
 export default function StoreProvider({
   children,
@@ -14,6 +15,7 @@ export default function StoreProvider({
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
         <ThemeManager />
+        <AppToast />
         {children}
       </PersistGate>
     </Provider>
